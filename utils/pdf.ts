@@ -32,14 +32,24 @@ const html = `
       padding: 20px 30px;
     }
     header {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       border-bottom: 2px solid #dcdcdc;
       padding-bottom: 15px;
       margin-bottom: 20px;
     }
-    h1 {
+    header h1 {
       font-size: 28px;
       color: #333333;
+    }
+    .sender-details {
+      text-align: right;
+      font-size: 14px;
+      color: #333333;
+    }
+    .sender-details p {
+      margin: 0;
     }
     .bill-to {
       margin-bottom: 30px;
@@ -102,6 +112,14 @@ const html = `
     <!-- Header Section -->
     <header>
       <h1>Invoice</h1>
+      <!-- Sender Details Section -->
+      <div class="sender-details">
+        <p><strong>${invoice.senderInfo.name}</strong></p>
+        ${invoice.senderInfo.email ? `<p>${invoice.senderInfo.email}</p>` : ''}
+        ${invoice.senderInfo.phone ? `<p>${invoice.senderInfo.phone}</p>` : ''}
+        ${invoice.senderInfo.address ? `<p>${invoice.senderInfo.address}</p>` : ''}
+        ${invoice.senderInfo.website ? `<p>${invoice.senderInfo.website}</p>` : ''}
+      </div>
     </header>
 
     <!-- Bill To Section -->
@@ -110,17 +128,13 @@ const html = `
       <p><strong>Name:</strong> ${invoice.recipientInfo.name}</p>
       ${invoice.recipientInfo.email ? `
         <p><strong>Email:</strong> ${invoice.recipientInfo.email}</p>
-        ` : ''
-      }
+      ` : ''}
       ${invoice.recipientInfo.phone ? `
         <p><strong>Phone:</strong> ${invoice.recipientInfo.phone}</p>
-        ` : ''
-      }
+      ` : ''}
       ${invoice.recipientInfo.address ? `
-        <p><strong>Phone:</strong> ${invoice.recipientInfo.address}</p>
-        ` : ''
-      }
-      
+        <p><strong>Address:</strong> ${invoice.recipientInfo.address}</p>
+      ` : ''}
     </div>
 
     <!-- Items Table -->
@@ -134,15 +148,14 @@ const html = `
         </tr>
       </thead>
       <tbody>
-        ${ invoice.items.map((item) => `
+        ${invoice.items.map((item) => `
           <tr>
             <td>${item.name}</td>
             <td>${item.price}</td>
             <td>${item.quantity}</td>
             <td>${getTotal(item.price, item.quantity)}</td>
           </tr>
-          `
-        )}
+        `)}
       </tbody>
     </table>
 
@@ -160,6 +173,7 @@ const html = `
   </div>
 </body>
 </html>
+
 `;
 
 return html

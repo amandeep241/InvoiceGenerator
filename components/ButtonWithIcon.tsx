@@ -6,7 +6,7 @@ const ButtonWithIcon = ({ onPress, title, iconName, iconColor = 'black', outline
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-row items-center justify-center px-4 py-2 rounded-[28px] ${
+      className={`flex-row items-center justify-center px-4 py-2 mt-4 rounded-[28px] ${
         outlined ? 'border border-gray-500' : 'bg-blue-500'
       }`}
     >

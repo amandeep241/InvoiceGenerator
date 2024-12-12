@@ -73,7 +73,7 @@ const Summary = () => {
         </Text>
       </View>
 
-      <Link href={{ pathname: '/invoices/generate/share-pdf' }} asChild>
+      <Link href={{ pathname: '/share-pdf' }} asChild>
         <Button title="Generate Invoice PDF" className="my-4" />
       </Link>
     </View>

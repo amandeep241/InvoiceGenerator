@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button } from '~/components/Button';
-import ButtonWithIcon from '~/components/ButtonWithIcon'
-import CustomTextInput from '../../../components/CustomTextInput';
+import ButtonWithIcon from '~/components/ButtonWithIcon';
+import CustomTextInput from '../components/CustomTextInput';
 import { useForm, FormProvider } from 'react-hook-form';
 import { router } from 'expo-router';
 import { useStore } from '~/store/store';
@@ -10,6 +10,7 @@ import { useStore } from '~/store/store';
 export default function Items() {
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const [items, setItems] = useState([]);
+  const [itemError, setItemError] = useState('');
 
   const { updateItems } = useStore();
 
@@ -25,9 +26,20 @@ export default function Items() {
     setIsSubmitSuccessful(false);
   }, [isSubmitSuccessful]);
 
+  useEffect(() => {
+    if (items.length === 0) {
+      return;
+    }
+    setItemError('');
+  }, [items]);
+
   const onNextClick = () => {
+    if (items.length === 0) {
+      setItemError('Please add atleast 1 item.');
+      return;
+    }
     updateItems(items);
-    router.push('/invoices/generate/tax-details');
+    router.push('/tax-details');
   };
 
   const addItem = (data) => {
@@ -69,8 +81,12 @@ export default function Items() {
       <Text className="mb-5 text-2xl font-bold">Items</Text>
       <FormProvider {...form}>
         <ScrollView>
-          <CustomTextInput name="name" label="Name" placeholder="Enter Item  Name" 
-            rules={{ required: 'Item Name is required' }}/>
+          <CustomTextInput
+            name="name"
+            label="Name"
+            placeholder="Enter Item  Name"
+            rules={{ required: 'Item Name is required' }}
+          />
           <View className="item-fields flex-row justify-between">
             <CustomTextInput
               width="w-48"
@@ -78,12 +94,12 @@ export default function Items() {
               label="Price"
               placeholder="Enter Item Price"
               style={styles.itemInput}
-              rules={{ 
+              rules={{
                 required: 'Item Price is required',
                 pattern: {
                   value: /^\d+$/,
                   message: 'Please enter a valid number',
-                }
+                },
               }}
               keyboardType="numeric"
             />
@@ -92,18 +108,18 @@ export default function Items() {
               name="quantity"
               label="Quantity"
               placeholder="Enter Item Quantity"
-              rules={{ 
-                required: 'Item Quantity is required', 
+              rules={{
+                required: 'Item Quantity is required',
                 pattern: {
                   value: /^\d+$/,
                   message: 'Please enter a valid number',
-                }
+                },
               }}
               keyboardType="numeric"
             />
           </View>
           {/* <Button title="Add Item" className="mt-auto" onPress={form.handleSubmit(addItem)} /> */}
-          <ButtonWithIcon 
+          <ButtonWithIcon
             title="Add Item"
             onPress={form.handleSubmit(addItem)}
             iconName="plus"
@@ -129,6 +145,8 @@ export default function Items() {
             </View>
           )}
         />
+
+        {itemError && <Text className="mb-5 text-center text-red-500">{itemError}</Text>}
 
         <Button title="Next" className="mt-auto" onPress={onNextClick} />
       </FormProvider>

@@ -1,6 +1,6 @@
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Button } from '~/components/Button';
-import CustomTextInput from '../../../components/CustomTextInput';
+import CustomTextInput from '../components/CustomTextInput';
 import { useForm, FormProvider } from 'react-hook-form';
 import { router } from 'expo-router';
 import { useStore } from '~/store/store';
@@ -16,7 +16,7 @@ export default function GenerateInvoice() {
 
   const onSubmit = (data) => {
     updateTaxInfo(data);
-    router.push('/invoices/generate/summary');
+    router.push('/summary');
   };
 
   return (
