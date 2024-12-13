@@ -116,7 +116,10 @@ const html = `
       <div class="sender-details">
         <p><strong>${invoice.senderInfo.name}</strong></p>
         ${invoice.senderInfo.email ? `<p>${invoice.senderInfo.email}</p>` : ''}
-        ${invoice.senderInfo.phone ? `<p>${invoice.senderInfo.phone}</p>` : ''}
+        <p>
+        ${invoice.senderInfo.phone ? `<span>${invoice.senderInfo.phone}</span>` : ''}&nbsp; 
+        ${invoice.senderInfo.secondaryPhone ? `<span>${invoice.senderInfo.secondaryPhone}</span>` : ''}
+        </p>
         ${invoice.senderInfo.address ? `<p>${invoice.senderInfo.address}</p>` : ''}
         ${invoice.senderInfo.website ? `<p>${invoice.senderInfo.website}</p>` : ''}
       </div>

@@ -11,6 +11,9 @@
     "preview": {
       "distribution": "internal"
     },
+    "landscaping": {
+      "distribution": "internal"
+    },
     "production": {
       "autoIncrement": true
     }
