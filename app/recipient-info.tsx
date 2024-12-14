@@ -22,7 +22,7 @@ export default function GenerateInvoice() {
         <ScrollView>
           <CustomTextInput
             name="name"
-            label="Name"
+            label="Name*"
             placeholder="Enter Recipient Name"
             rules={{ required: 'Name is required' }}
           />

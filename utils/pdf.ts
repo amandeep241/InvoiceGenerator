@@ -158,7 +158,7 @@ const html = `
             <td>${item.quantity}</td>
             <td>${getTotal(item.price, item.quantity)}</td>
           </tr>
-        `)}
+        `).join('')}
       </tbody>
     </table>
 

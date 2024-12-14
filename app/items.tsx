@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button } from '~/components/Button';
+import { FontAwesome } from '@expo/vector-icons';
 import ButtonWithIcon from '~/components/ButtonWithIcon';
 import CustomTextInput from '../components/CustomTextInput';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -42,6 +43,10 @@ export default function Items() {
     router.push('/tax-details');
   };
 
+  const deleteItem = (id) => {
+    setItems(items.filter(item => item.id !== id)); // Remove item with the matching ID
+  };
+
   const addItem = (data) => {
     const { name, price, quantity } = data;
     if (name.trim() !== '' && price.trim() !== '' && quantity.trim() !== '') {
@@ -58,7 +63,6 @@ export default function Items() {
         price: '',
         quantity: '',
       });
-      //TODO Clear input fields after adding
     }
   };
 
@@ -78,77 +82,86 @@ export default function Items() {
 
   return (
     <View className="flex-1 p-4" style={{ backgroundColor: '#fff' }}>
-      <Text className="mb-5 text-2xl font-bold">Items</Text>
+      <Text className="mb-4 text-2xl font-bold">Items</Text>
       <FormProvider {...form}>
-        <ScrollView>
+        <CustomTextInput
+          name="name"
+          label="Name*"
+          placeholder="Enter Item  Name"
+          rules={{ required: 'Item Name is required' }}
+          inputClass="p-3"
+          textClass="mb-1"
+        />
+        <View className="item-fields flex-row justify-between">
           <CustomTextInput
-            name="name"
-            label="Name"
-            placeholder="Enter Item  Name"
-            rules={{ required: 'Item Name is required' }}
+            inputClass="w-48 p-3"
+            name="price"
+            label="Price*"
+            placeholder="Enter Item Price"
+            style={styles.itemInput}
+            rules={{
+              required: 'Item Price is required',
+              pattern: {
+                value: /^\d+$/,
+                message: 'Please enter a valid number',
+              },
+            }}
+            keyboardType="numeric"
+            textClass="mb-1"
           />
-          <View className="item-fields flex-row justify-between">
-            <CustomTextInput
-              width="w-48"
-              name="price"
-              label="Price"
-              placeholder="Enter Item Price"
-              style={styles.itemInput}
-              rules={{
-                required: 'Item Price is required',
-                pattern: {
-                  value: /^\d+$/,
-                  message: 'Please enter a valid number',
-                },
-              }}
-              keyboardType="numeric"
-            />
-            <CustomTextInput
-              width="w-48"
-              name="quantity"
-              label="Quantity"
-              placeholder="Enter Item Quantity"
-              rules={{
-                required: 'Item Quantity is required',
-                pattern: {
-                  value: /^\d+$/,
-                  message: 'Please enter a valid number',
-                },
-              }}
-              keyboardType="numeric"
-            />
-          </View>
-          {/* <Button title="Add Item" className="mt-auto" onPress={form.handleSubmit(addItem)} /> */}
-          <ButtonWithIcon
-            title="Add Item"
-            onPress={form.handleSubmit(addItem)}
-            iconName="plus"
-            iconColor="green"
+          <CustomTextInput
+            inputClass="w-48 p-3"
+            name="quantity"
+            label="Quantity*"
+            placeholder="Enter Item Quantity"
+            rules={{
+              required: 'Item Quantity is required',
+              pattern: {
+                value: /^\d+$/,
+                message: 'Please enter a valid number',
+              },
+            }}
+            keyboardType="numeric"
+            textClass="m-0"
           />
-        </ScrollView>
+        </View>
+        {/* <Button title="Add Item" className="mt-auto" onPress={form.handleSubmit(addItem)} /> */}
+        <ButtonWithIcon
+          title="Add Item"
+          onPress={form.handleSubmit(addItem)}
+          iconName="plus"
+          iconColor="green"
+        />
 
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             // <View style={styles.itemContainer}>
-            <View style={styles.itemContainer}>
-              <View className="flex-row items-center justify-between px-4 py-2">
-                <Text style={styles.itemText}>{item.name}</Text>
-                <Text style={styles.itemText}>{Number(item.price) * item.quantity}</Text>
+            <View className="item-fields flex-row ">
+              <View style={styles.itemContainer} className="w-[85%]">
+                <View className="flex-row items-center justify-between px-4 py-2">
+                  <Text style={styles.itemText}>{item.name}</Text>
+                  <Text style={styles.itemText}>{Number(item.price) * item.quantity}</Text>
+                </View>
+                <View>
+                  <Text style={styles.itemText}>
+                    {Number(item.price).toFixed(2)} x {item.quantity}
+                  </Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.itemText}>
-                  {Number(item.price).toFixed(2)} x {item.quantity}
-                </Text>
-              </View>
+              <TouchableOpacity onPress={() => deleteItem(item.id)} className="w-[15%] pt-8 pl-6">
+                <FontAwesome name="trash" size={24} color="red" />
+              </TouchableOpacity>
             </View>
           )}
         />
 
         {itemError && <Text className="mb-5 text-center text-red-500">{itemError}</Text>}
 
-        <Button title="Next" className="mt-auto" onPress={onNextClick} />
+        <View className="py-4">
+          <Button title="Next" className="mt-auto" onPress={onNextClick} />
+        </View>
       </FormProvider>
     </View>
   );

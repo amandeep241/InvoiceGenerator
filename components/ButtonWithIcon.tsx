@@ -1,12 +1,12 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Or any other icon library
+import { FontAwesome } from '@expo/vector-icons';   
 
 const ButtonWithIcon = ({ onPress, title, iconName, iconColor = 'black', outlined = true }) => {
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-row items-center justify-center px-4 py-2 mt-4 rounded-[28px] ${
+      className={`flex-row items-center justify-center px-4 py-2 mt-0 mb-4 rounded-[28px] ${
         outlined ? 'border border-gray-500' : 'bg-blue-500'
       }`}
     >

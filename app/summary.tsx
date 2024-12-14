@@ -35,7 +35,7 @@ const Summary = () => {
 
   return (
     <View className="flex-1 p-4" style={{ backgroundColor: '#fff' }}>
-      <View className="flex-1 bg-gray-100 p-4">
+      <View className="flex-1 bg-gray-100 p-6">
         {/* Recipient Details */}
         <Text className="mb-4 text-xl font-bold text-gray-800">Recipient Details</Text>
         <View className="mb-6">
@@ -74,7 +74,7 @@ const Summary = () => {
       </View>
 
       <Link href={{ pathname: '/share-pdf' }} asChild>
-        <Button title="Generate Invoice PDF" className="my-4" />
+        <Button title="Generate Invoice PDF" className="my-8" />
       </Link>
     </View>
   );

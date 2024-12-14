@@ -19,7 +19,7 @@ export default function GenerateInvoice() {
     <View className="flex-1 p-4" style={{ backgroundColor: '#fff' }}>
       <Text className="mb-5 text-2xl font-bold">Sender Info</Text>
       <FormProvider {...form}>
-        <ScrollView>
+        <ScrollView className="">
           <CustomTextInput
             name="name"
             label="Name*"
@@ -70,7 +70,9 @@ export default function GenerateInvoice() {
           />
         </ScrollView>
 
-        <Button title="Next" className="mb-12" onPress={form.handleSubmit(onSubmit)} />
+        <View className="pt-4">
+          <Button title="Next" className="mb-12" onPress={form.handleSubmit(onSubmit)} />
+        </View>
       </FormProvider>
     </View>
   );
