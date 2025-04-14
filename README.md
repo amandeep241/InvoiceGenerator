@@ -12,8 +12,8 @@ A React Native app built with Expo that helps create invoices. Users can input s
 
 1. **Clone the repo**:
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/amandeep241/InvoiceGenerator.git
+   cd invoice-generator
    npm start```
 
 ## Scan the QR code with the Expo Go app or use an emulator.
