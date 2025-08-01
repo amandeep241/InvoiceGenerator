@@ -16,7 +16,7 @@ A React Native app built with Expo that helps create invoices. Users can input s
    cd invoice-generator
    npm start```
 
-## Scan the QR code with the Expo Go app or use an emulator.
+
 
 
    
